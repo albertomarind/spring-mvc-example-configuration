@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Escanea el paquete donde estan los controladores para agregarlos al 
+		contexto de spring -->
+	<context:component-scan
+		base-package="com.ejemplospring.mvc.controllers" />
+
+	<!-- Necesario para formateo y validacion en spring mvc, ademas del uso 
+		de anotaciones -->
+	<mvc:annotation-driven />
+
+	<!-- Configuracion para especificar la ruta de las vistas y el prefijo de 
+		las mismas -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- Para cargar assets (js,css,images) -->
+	<mvc:resources mapping="/resources/**"
+		location="/resources/"></mvc:resources>
+		
+		<!-- Asi se llamaria a un recurso -->
+		<!-- <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
+ 		-->
+</beans>
+
+
+
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>spring-mvc-example-configuration</display-name>
+
+	<!-- Necesario para evitar problemas al cargar el xml -->
+	<absolute-ordering />
+
+	<!-- Si quito esta configuracion estoy obligado a colocar un archivo en
+		/WEB-INF/applicationContext.xml con la configuracion de los beans de raiz.
+		
+		Sobrescribe la ubicacion y el nombre del archivo de configuracion de spring
+	 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/app-context.xml</param-value>
+	</context-param>
+	
+	<!-- Carga el contexto raiz (applicationContext.xml) o si existe un <context-param> carga
+		/WEB-INF/spring/app-context.xml
+	 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+
+	<!-- Servlet de Spring  que implementa el patron de diseño FrontController 
+		Es el servlet principal y el pasa las peticiones a otros controladores
+	-->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- Si no se agrega este init param se debe crear un archivo de configuracion
+			con el nombre {servlet-name}-servlet.xml en la raiz de WEB-INF/dispatcher-servlet.xml
+			Sobrescribe la ubicacion y nombre
+		 -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
